@@ -25,7 +25,7 @@ SECRET_KEY = '=y!hj8x-l_*=g+^xhsvnfp2%rhxs3t$g*+y6!gowg(5t+b%)uu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk']
 
 
 # Application definition
