@@ -25,7 +25,7 @@ SECRET_KEY = '=y!hj8x-l_*=g+^xhsvnfp2%rhxs3t$g*+y6!gowg(5t+b%)uu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk']
 
 
 # Application definition
@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth2_provider',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'pescar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +79,7 @@ WSGI_APPLICATION = 'pescar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../pescar.db/db.sqlite3'),
     }
 }
 
@@ -118,3 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CORS
+
+CORS_ORIGIN_ALLOW_ALL = True
