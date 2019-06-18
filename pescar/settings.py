@@ -142,3 +142,4 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
     FORCE_SCRIPT_NAME='/pescar-beta'
     STATIC_URL='/pescar-beta/static/'
 
+CSRF_USE_SESSIONS = True
