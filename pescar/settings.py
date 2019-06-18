@@ -121,7 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # CORS
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# SCRIPT_NAME
+if os.environ.get('DJANGO_DEVELOPMENT') is None:
+    FORCE_SCRIPT_NAME='/pescar-beta'
+    STATIC_URL='/pescar-beta/static/'
