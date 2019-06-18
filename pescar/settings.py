@@ -89,7 +89,7 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
             'NAME': 'pescar_django',
             'USER': 'pescar',
             'PASSWORD': 'POSTGRES_PW_HERE',
-            'HOST': 'juve.st-andrews.ac.uk'
+            'HOST': 'juve.st-andrews.ac.uk',
             'PORT': '5432',
         }
     }
