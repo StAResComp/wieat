@@ -142,4 +142,5 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
     FORCE_SCRIPT_NAME='/pescar-beta'
     STATIC_URL='/pescar-beta/static/'
 
-CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_NAME = 'csrf_token'
+CSRF_COOKIE_SECURE = True
