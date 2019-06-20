@@ -45,8 +45,8 @@ if settings.DEBUG:
     ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/hello', ApiEndpoint.as_view()),  # an example resource endpoint
-    path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
