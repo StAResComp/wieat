@@ -82,17 +82,17 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, '../pescar.db/db.sqlite3'),
     }
 }
-#if os.environ.get('DJANGO_DEVELOPMENT') is None:
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': 'pescar_django',
-#            'USER': 'pescar',
-#            'PASSWORD': 'POSTGRES_PW_HERE',
-#            'HOST': 'juve.st-andrews.ac.uk',
-#            'PORT': '5432',
-#        }
-#    }
+if os.environ.get('DJANGO_DEVELOPMENT') is None:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'pescar_django',
+            'USER': 'pescar',
+            'PASSWORD': 'POSTGRES_PW_HERE',
+            'HOST': 'juve.st-andrews.ac.uk',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -137,8 +137,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+OAUTH2_PROVIDER = {
+    'ALLOWED_REDIRECT_URI_SCHEMES': [
+        'uk.ac.standrews.pescar'
+    ]
+
+}
+
 # SCRIPT_NAME
 if os.environ.get('DJANGO_DEVELOPMENT') is None:
     FORCE_SCRIPT_NAME='/pescar-beta'
     STATIC_URL='/pescar-beta/static/'
-
+    LOGIN_URL='/pescar-beta/accounts/login/'
