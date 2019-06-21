@@ -98,7 +98,7 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
             'PASSWORD': 'POSTGRES_PW_HERE',
             'HOST': 'juve.st-andrews.ac.uk',
             'PORT': '5432',
-        }
+        },
         'data': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'pescar_data',
