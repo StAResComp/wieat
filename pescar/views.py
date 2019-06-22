@@ -12,6 +12,7 @@ class ApiEndpoint(ProtectedResourceView):
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             username = request.user.username
+            sys.stderr.write('Username:',username)
             cursor = connections['data'].cursor()
             cursor.execute("SELECT * FROM users WHERE username LIKE '%s'", username)
             users = cursor.fetchall()
