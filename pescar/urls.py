@@ -19,6 +19,7 @@ import oauth2_provider.views as oauth2_views
 from django.conf import settings
 from .views import ApiEndpoint
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
 # OAuth2 provider endpoints
 oauth2_endpoint_views = [
@@ -47,6 +48,6 @@ if settings.DEBUG:
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^api/data', ApiEndpoint.as_view()),  # an example resource endpoint
+    url(r'^api/data', csrf_exempt(ApiEndpoint.as_view())),  # an example resource endpoint
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
