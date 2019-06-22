@@ -18,10 +18,10 @@ class ApiEndpoint(ProtectedResourceView):
             users = cursor.fetchall()
             user_id = None
             if len(users) == 0:
-                cursor.execute("INSERT INTO users (username) VALUES ('%s')", username)
+                cursor.execute("INSERT INTO users (username) VALUES ('{}')".format(username))
                 user_id = cursor.lastrowid
             else:
                 user_id = users[0][0]
-            cursor.execute("INSERT INTO trips (user_id, data) VALUES ('%s', '%s')", user_id, request.body)
+            cursor.execute("INSERT INTO trips (user_id, data) VALUES ('{}', '{}')".format(user_id, request.body))
             return HttpResponse("Success!", 200)
 
