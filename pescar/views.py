@@ -2,6 +2,7 @@
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 from django.db import connections
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     return HttpResponse("Hello world")
