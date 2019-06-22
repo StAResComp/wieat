@@ -7,8 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     return HttpResponse("Hello world")
 
-@csrf_exempt
 class ApiEndpoint(ProtectedResourceView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             username = request.user.username
