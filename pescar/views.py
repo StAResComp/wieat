@@ -1,13 +1,25 @@
 # from django.shortcuts import render
 from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
+from django.db import connections
 
 def index(request):
     return HttpResponse("Hello world")
 
 class ApiEndpoint(ProtectedResourceView):
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello, OAuth2!')
-
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
-        return HttpResponse('Hello, OAuth2!')
+        if request.user.is_authenticated:
+            username = request.user.username
+            cursor = connections['data'].cursor()
+            cursor.execute("SELECT * FROM users WHERE username LIKE '%s'", username)
+            users = cursor.fetchall()
+            user_id = None
+            if len(users) == 0:
+                cursor.execute("INSERT INTO users (username) VALUES ('%s')", username)
+                user_id = cursor.lastrowid
+            else:
+                user_id = users[0][0]
+            cursor.execute("INSERT INTO trips (user_id, data) VALUES ('%s', '%s')", user_id, request.body)
+            return HttpResponse("Success!", 200)
+
