@@ -22,6 +22,8 @@ class ApiEndpoint(ProtectedResourceView):
                 user_id = cursor.lastrowid
             else:
                 user_id = users[0][0]
+            sys.stderr.write('User ID: {}'.format(user_id))
+            sys.stderr.write('Data: \n {}'.format(request.body))
             cursor.execute("INSERT INTO trips (user_id, data) VALUES ('{}', '{}')".format(user_id, request.body))
             return HttpResponse("Success!", 200)
 
