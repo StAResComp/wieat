@@ -24,5 +24,5 @@ class ApiEndpoint(ProtectedResourceView):
                 user_id = users[0][0]
             body = request.body.decode('utf-8')
             cursor.execute("INSERT INTO trips (user_id, data) VALUES ('{}', '{}')".format(user_id, body))
-            return HttpResponse("Success!", 200)
+            return HttpResponse("{'Success':'True'}", 200)
 
