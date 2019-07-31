@@ -27,10 +27,13 @@ class ApiEndpoint(ProtectedResourceView):
             return HttpResponse("{'Success':'True'}", 200)
 
 class Tracks(ProtectedResourceView):
-    return HttpResponse("Tracks")
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Tracks")
 
 class Tows(ProtectedResourceView):
-    return HttpResponse("Tows")
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Tows")
 
 class Hauls(ProtectedResourceView):
-    return HttpResponse("Hauls")
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Hauls")
