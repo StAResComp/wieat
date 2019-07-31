@@ -17,7 +17,7 @@ from django.urls import path
 from django.conf.urls import url, include
 import oauth2_provider.views as oauth2_views
 from django.conf import settings
-from .views import ApiEndpoint
+from .views import ApiEndpoint, Tracks, Tows, Hauls
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 
