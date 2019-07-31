@@ -26,3 +26,11 @@ class ApiEndpoint(ProtectedResourceView):
             cursor.execute("INSERT INTO trips (user_id, data) VALUES (%s, %s)", (user_id, body,))
             return HttpResponse("{'Success':'True'}", 200)
 
+class Tracks(ProtectedResourceView):
+    return HttpResponse("Tracks")
+
+class Tows(ProtectedResourceView):
+    return HttpResponse("Tows")
+
+class Hauls(ProtectedResourceView):
+    return HttpResponse("Hauls")
