@@ -17,7 +17,8 @@ from django.urls import path
 from django.conf.urls import url, include
 import oauth2_provider.views as oauth2_views
 from django.conf import settings
-from .views import ApiEndpoint, Tracks, Tows, Hauls
+from . import views
+from .views import ApiEndpoint
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 
@@ -47,10 +48,8 @@ if settings.DEBUG:
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^data/', views.data),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/data', csrf_exempt(ApiEndpoint.as_view())),  # an example resource endpoint
-    url(r'^data/hauls', Hauls.as_view()),  # an example resource endpoint
-    url(r'^data/tows', Tows.as_view()),  # an example resource endpoint
-    url(r'^data/tracks', Tracks.as_view()),  # an example resource endpoint
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
