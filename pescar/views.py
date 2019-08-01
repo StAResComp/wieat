@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from datetime import datetime
 from dateutil.parser import parse
+import csv
 import sys
 
 def index(request):
