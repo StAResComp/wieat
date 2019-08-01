@@ -30,8 +30,8 @@ def data(request):
         elif datatype == 'hauls' or 'haul':
             table_name = 'hauls'
 
-        query_str = 'SELECT * FROM %s WHERE'
-        query_vals = [table_name]
+        query_str = 'SELECT * FROM {} WHERE'.format(table_name)
+        query_vals = []
         needs_and = False
 
         if user != '':
