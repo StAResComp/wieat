@@ -35,21 +35,21 @@ def data(request):
         needs_and = False
 
         if user != '':
-            query_str += " username LIKE $s"
+            query_str += " username LIKE %s"
             query_vals.append(user)
             needs_and = True
 
         if date_from != None:
             if needs_and:
                 query_str += " AND"
-            query_str += " timestamp >= $s"
+            query_str += " timestamp >= %s"
             query_vals.append(date_from)
             needs_and = True
 
         if date_to != None:
             if needs_and:
                 query_str += " AND"
-            query_str += " timestamp < $s"
+            query_str += " timestamp < %s"
             query_vals.append(date_to)
             needs_and = True
 
