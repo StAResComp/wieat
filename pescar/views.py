@@ -31,28 +31,34 @@ def data(request):
         elif datatype == 'hauls' or 'haul':
             table_name = 'hauls'
 
-        query_str = 'SELECT * FROM {} WHERE'.format(table_name)
+        query_str = 'SELECT * FROM {}'.format(table_name)
         query_vals = []
-        needs_and = False
+        needs_where = True
 
         if user != '':
+            if needs_where:
+                query_str += " WHERE"
             query_str += " username LIKE %s"
             query_vals.append(user)
-            needs_and = True
+            needs_where = False
 
         if date_from != None:
-            if needs_and:
+            if needs_where:
+                query_str += " WHERE"
+            else:
                 query_str += " AND"
             query_str += " timestamp >= %s"
             query_vals.append(date_from)
-            needs_and = True
+            needs_where = False
 
         if date_to != None:
-            if needs_and:
+            if needs_where:
+                query_str += " WHERE"
+            else:
                 query_str += " AND"
             query_str += " timestamp < %s"
             query_vals.append(date_to)
-            needs_and = True
+            needs_where = False
 
         cursor = connections['data'].cursor()
         cursor.execute(query_str, tuple(query_vals))
