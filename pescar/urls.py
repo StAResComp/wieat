@@ -49,6 +49,7 @@ if settings.DEBUG:
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^data/', views.data),
+    url(r'^search/', views.search),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/data', csrf_exempt(ApiEndpoint.as_view())),  # an example resource endpoint
     url(r'^accounts/', include('django.contrib.auth.urls')),

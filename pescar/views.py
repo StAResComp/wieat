@@ -6,11 +6,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from datetime import datetime
 from dateutil.parser import parse
+from django.shortcuts import render
 import csv
 import sys
+from . import forms
+from .forms import DataSearchForm
 
 def index(request):
     return HttpResponse("Hello world")
+
+def search(request):
+    return render(request, 'search.html', {'form': DataSearchForm().as_p()})
 
 def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
