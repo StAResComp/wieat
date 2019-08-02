@@ -16,68 +16,76 @@ def index(request):
     return HttpResponse("Hello world")
 
 def search(request):
-    return render(request, 'search.html', {'form': DataSearchForm().as_p()})
+    if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
+        return render(request, 'search.html', {'form': DataSearchForm().as_p()})
+    else:
+        return HttpResponse('Permission denied', status=403)
 
 def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        datatype = request.GET.get('type','tracks')
-        user = request.GET.get('user','')
-        date_from_str = request.GET.get('datefrom','')
-        date_from = None
-        if date_from_str != '':
-            date_from = parse(date_from_str, dayfirst=True)
-        date_to_str = request.GET.get('dateto','')
-        date_to = None
-        if date_to_str != '':
-            date_to = parse(date_to_str, dayfirst=True)
+        form = DataSearchForm(request.GET)
+        if form.is_valid():
+            datatype = request.GET.get('type','tracks')
+            user = request.GET.get('user','')
+            date_from_str = request.GET.get('datefrom','')
+            date_from = None
+            if date_from_str != '':
+                date_from = parse(date_from_str, dayfirst=True)
+            date_to_str = request.GET.get('dateto','')
+            date_to = None
+            if date_to_str != '':
+                date_to = parse(date_to_str, dayfirst=True)
 
-        table_name = 'tracks'
-        if datatype == 'tows' or datatype == 'tow':
-            table_name = 'tows'
-        elif datatype == 'hauls' or datatype == 'haul':
-            table_name = 'hauls'
+            table_name = 'tracks'
+            if datatype == 'tows' or datatype == 'tow':
+                table_name = 'tows'
+            elif datatype == 'hauls' or datatype == 'haul':
+                table_name = 'hauls'
 
-        query_str = 'SELECT * FROM {}'.format(table_name)
-        query_vals = []
-        needs_where = True
+            query_str = 'SELECT * FROM {}'.format(table_name)
+            query_vals = []
+            needs_where = True
 
-        if user != '':
-            if needs_where:
-                query_str += " WHERE"
-            query_str += " username LIKE %s"
-            query_vals.append(user)
-            needs_where = False
+            if user != '':
+                if needs_where:
+                    query_str += " WHERE"
+                query_str += " username LIKE %s"
+                query_vals.append(user)
+                needs_where = False
 
-        if date_from != None:
-            if needs_where:
-                query_str += " WHERE"
-            else:
-                query_str += " AND"
-            query_str += " timestamp >= %s"
-            query_vals.append(date_from)
-            needs_where = False
+            if date_from != None:
+                if needs_where:
+                    query_str += " WHERE"
+                else:
+                    query_str += " AND"
+                query_str += " timestamp >= %s"
+                query_vals.append(date_from)
+                needs_where = False
 
-        if date_to != None:
-            if needs_where:
-                query_str += " WHERE"
-            else:
-                query_str += " AND"
-            query_str += " timestamp < %s"
-            query_vals.append(date_to)
-            needs_where = False
+            if date_to != None:
+                if needs_where:
+                    query_str += " WHERE"
+                else:
+                    query_str += " AND"
+                query_str += " timestamp < %s"
+                query_vals.append(date_to)
+                needs_where = False
 
-        cursor = connections['data'].cursor()
-        cursor.execute(query_str, tuple(query_vals))
-        records = cursor.fetchall()
+            cursor = connections['data'].cursor()
+            cursor.execute(query_str, tuple(query_vals))
+            records = cursor.fetchall()
 
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(table_name)
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(table_name)
 
-        writer = csv.writer(response)
-        writer.writerow([i[0] for i in cursor.description])
-        writer.writerows(records)
+            writer = csv.writer(response)
+            writer.writerow([i[0] for i in cursor.description])
+            writer.writerows(records)
 
-        return response
+            return response
+
+        else:
+            return HttpResponse('Permission denied', status=403)
 
     else:
         return HttpResponse('Permission denied', status=403)
