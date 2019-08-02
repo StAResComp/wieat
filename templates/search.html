@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<form action="/data/" method="get">
+<form action="/pescar-beta/data/" method="get">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">
