@@ -25,7 +25,7 @@ def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
         form = DataSearchForm(request.GET)
         if form.is_valid():
-            datatype = request.GET.get('type','tracks')
+            datatype = request.GET.get('datatype','tracks')
             user = request.GET.get('user','')
             date_from_str = request.GET.get('datefrom','')
             date_from = None
