@@ -26,9 +26,9 @@ def data(request):
             date_to = parse(date_to_str, dayfirst=True)
 
         table_name = 'tracks'
-        if datatype == 'tows' or 'tow':
+        if datatype == 'tows' or datatype == 'tow':
             table_name = 'tows'
-        elif datatype == 'hauls' or 'haul':
+        elif datatype == 'hauls' or datatype == 'haul':
             table_name = 'hauls'
 
         query_str = 'SELECT * FROM {}'.format(table_name)
