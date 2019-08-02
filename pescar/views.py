@@ -14,7 +14,7 @@ def index(request):
 
 def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        datatype = request.GET.get('type','')
+        datatype = request.GET.get('type','tracks')
         user = request.GET.get('user','')
         date_from_str = request.GET.get('datefrom','')
         date_from = None
@@ -65,7 +65,7 @@ def data(request):
         records = cursor.fetchall()
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="pescar_data.csv"'
+        response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(table_name)
 
         writer = csv.writer(response)
         writer.writerow([i[0] for i in cursor.description])
