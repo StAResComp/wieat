@@ -19,7 +19,7 @@ def search(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
         return render(request, 'search.html', {'form': DataSearchForm().as_p()})
     else:
-        return HttpResponse('Permission denied', status=403)
+        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
 def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
@@ -85,16 +85,16 @@ def data(request):
             return response
 
         else:
-            return HttpResponse('Permission denied', status=403)
+            return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
     else:
-        return HttpResponse('Permission denied', status=403)
+        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
 def search_my_data(request):
     if request.user.is_authenticated:
         return render(request, 'search-my-data.html', {'form': MyDataSearchForm().as_p()})
     else:
-        return HttpResponse('Permission denied', status=403)
+        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
 def my_data(request):
     if request.user.is_authenticated:
@@ -144,10 +144,10 @@ def my_data(request):
             return response
 
         else:
-            return HttpResponse('Permission denied', status=403)
+            return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
     else:
-        return HttpResponse('Permission denied', status=403)
+        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
 class ApiEndpoint(ProtectedResourceView):
     @csrf_exempt
