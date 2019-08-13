@@ -7,4 +7,8 @@ class DataSearchForm(forms.Form):
     datefrom = forms.DateField(label='From Date (YYYY-MM-DD)', required=False)
     dateto = forms.DateField(label='To Date (YYYY-MM-DD)', required=False)
 
-
+class MyDataSearchForm(forms.Form):
+    datatypes = (('tracks','Tracks'),('tows','Tows'),('hauls','Hauls'))
+    datatype = forms.ChoiceField(choices = datatypes)
+    datefrom = forms.DateField(label='From Date (YYYY-MM-DD)', required=False)
+    dateto = forms.DateField(label='To Date (YYYY-MM-DD)', required=False)

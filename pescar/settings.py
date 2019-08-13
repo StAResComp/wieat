@@ -87,27 +87,31 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, '../pescar.db/db.sqlite3'),
+    },
+    'data': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '../pescar.db/data.sqlite3'),
     }
 }
-if os.environ.get('DJANGO_DEVELOPMENT') is None:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'pescar_django',
-            'USER': 'pescar',
-            'PASSWORD': 'POSTGRES_PW_HERE',
-            'HOST': 'juve.st-andrews.ac.uk',
-            'PORT': '5432',
-        },
-        'data': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'pescar_data',
-            'USER': 'pescar',
-            'PASSWORD': 'POSTGRES_PW_HERE',
-            'HOST': 'juve.st-andrews.ac.uk',
-            'PORT': '5432',
-        }
-    }
+# if os.environ.get('DJANGO_DEVELOPMENT') is None:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'pescar_django',
+#             'USER': 'pescar',
+#             'PASSWORD': 'POSTGRES_PW_HERE',
+#             'HOST': 'juve.st-andrews.ac.uk',
+#             'PORT': '5432',
+#         },
+#         'data': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'pescar_data',
+#             'USER': 'pescar',
+#             'PASSWORD': 'POSTGRES_PW_HERE',
+#             'HOST': 'juve.st-andrews.ac.uk',
+#             'PORT': '5432',
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -161,6 +165,8 @@ OAUTH2_PROVIDER = {
 
 # SCRIPT_NAME
 if os.environ.get('DJANGO_DEVELOPMENT') is None:
-    FORCE_SCRIPT_NAME='/pescar-beta'
-    STATIC_URL='/pescar-beta/static/'
-    LOGIN_URL='/pescar-beta/accounts/login/'
+    #FORCE_SCRIPT_NAME='/pescar-beta'
+    #STATIC_URL='/pescar-beta/static/'
+    #LOGIN_URL='/pescar-beta/accounts/login/'
+    STATIC_URL='/static/'
+    LOGIN_URL='/accounts/login/'

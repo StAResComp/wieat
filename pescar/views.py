@@ -90,6 +90,65 @@ def data(request):
     else:
         return HttpResponse('Permission denied', status=403)
 
+def search_my_data(request):
+    if request.user.is_authenticated:
+        return render(request, 'search-my-data.html', {'form': MyDataSearchForm().as_p()})
+    else:
+        return HttpResponse('Permission denied', status=403)
+
+def my_data(request):
+    if request.user.is_authenticated:
+        form = DataSearchForm(request.GET)
+        if form.is_valid():
+            datatype = request.GET.get('datatype','tracks')
+            # Get username from session info
+            user = request.user.username
+            date_from_str = request.GET.get('datefrom','')
+            date_from = None
+            if date_from_str != '':
+                date_from = parse(date_from_str, dayfirst=True)
+            date_to_str = request.GET.get('dateto','')
+            date_to = None
+            if date_to_str != '':
+                date_to = parse(date_to_str, dayfirst=True)
+
+            table_name = 'tracks'
+            if datatype == 'tows' or datatype == 'tow':
+                table_name = 'tows'
+            elif datatype == 'hauls' or datatype == 'haul':
+                table_name = 'hauls'
+
+            query_str = 'SELECT * FROM {} WHERE username LIKE %s'.format(table_name)
+            query_vals = []
+            query_vals.append(user)
+
+            if date_from != None:
+                query_str += " AND timestamp >= %s"
+                query_vals.append(date_from)
+
+            if date_to != None:
+                query_str += " AND timestamp < %s"
+                query_vals.append(date_to)
+
+            cursor = connections['data'].cursor()
+            cursor.execute(query_str, tuple(query_vals))
+            records = cursor.fetchall()
+
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(table_name)
+
+            writer = csv.writer(response)
+            writer.writerow([i[0] for i in cursor.description])
+            writer.writerows(records)
+
+            return response
+
+        else:
+            return HttpResponse('Permission denied', status=403)
+
+    else:
+        return HttpResponse('Permission denied', status=403)
+
 class ApiEndpoint(ProtectedResourceView):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
