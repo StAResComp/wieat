@@ -94,7 +94,7 @@ def search_my_data(request):
     if request.user.is_authenticated:
         return render(request, 'search-my-data.html', {'form': MyDataSearchForm().as_p()})
     else:
-        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
+        return HttpResponse('Permission denied for user {}. Authenticated: {}'.format(request.user.username, request.user.is_authenticated), status=403)
 
 def my_data(request):
     if request.user.is_authenticated:
