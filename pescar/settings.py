@@ -159,6 +159,8 @@ OAUTH2_PROVIDER = {
 
 }
 
+LOGIN_REDIRECT_URL = '/pescar-beta/search-my-data'
+
 # SCRIPT_NAME
 if os.environ.get('DJANGO_DEVELOPMENT') is None:
     FORCE_SCRIPT_NAME='/pescar-beta'
