@@ -40,8 +40,8 @@ def data(request):
             table_name = 'tracks'
             if datatype == 'tows' or datatype == 'tow':
                 table_name = 'tows'
-            elif datatype == 'hauls' or datatype == 'haul':
-                table_name = 'hauls'
+            elif datatype == 'catch':
+                table_name = 'catch'
 
             query_str = 'SELECT * FROM {}'.format(table_name)
             query_vals = []
@@ -116,8 +116,8 @@ def my_data(request):
             table_name = 'tracks'
             if datatype == 'tows' or datatype == 'tow':
                 table_name = 'tows'
-            elif datatype == 'hauls' or datatype == 'haul':
-                table_name = 'hauls'
+            elif datatype == 'catch':
+                table_name = 'catch'
 
             query_str = 'SELECT * FROM {} WHERE username LIKE %s'.format(table_name)
             query_vals = []
