@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=y!hj8x-l_*=g+^xhsvnfp2%rhxs3t$g*+y6!gowg(5t+b%)uu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk']
 
@@ -166,3 +166,22 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
     FORCE_SCRIPT_NAME='/pescar-beta'
     STATIC_URL='/pescar-beta/static/'
     LOGIN_URL='/pescar-beta/accounts/login/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, '..', 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+    }
