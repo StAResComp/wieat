@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^data/', views.data),
     url(r'^my-data/', views.my_data),
+    url(r'^browse-my-data/', views.browse_my_data),
     url(r'^search/', views.search),
     url(r'^search-my-data/', views.search_my_data),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
