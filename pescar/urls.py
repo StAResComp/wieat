@@ -52,7 +52,7 @@ urlpatterns = [
     url(r'^browse-data/', views.browse_data),
     url(r'^my-data/', views.my_data),
     url(r'^browse-my-data/', views.browse_my_data),
-    url(r'^search/', views.search),
+    url(r'^search-data/', views.search),
     url(r'^search-my-data/', views.search_my_data),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/data', csrf_exempt(ApiEndpoint.as_view())),  # an example resource endpoint
