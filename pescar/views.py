@@ -172,7 +172,7 @@ def search_my_data(request):
 
 def browse_my_data(request):
     if request.user.is_authenticated:
-        form = DataSearchForm(request.GET)
+        form = MyDataSearchForm(request.GET)
         table = None
         if form.is_valid():
             datatype = request.GET.get('datatype','tracks')
