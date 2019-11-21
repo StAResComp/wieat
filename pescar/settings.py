@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_tables2',
     'bootstrap4',
+    'templatetags',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -75,6 +76,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'custom_tags': 'templatetags.custom_tags',
+            },
         },
     },
 ]

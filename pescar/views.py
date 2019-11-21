@@ -95,7 +95,6 @@ def data(request):
 
 def browse_data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        form = DataSearchForm().as_p()
         table = None
         form = DataSearchForm(request.GET)
         if form.is_valid():
@@ -174,6 +173,7 @@ def search_my_data(request):
 def browse_my_data(request):
     if request.user.is_authenticated:
         form = DataSearchForm(request.GET)
+        table = None
         if form.is_valid():
             datatype = request.GET.get('datatype','tracks')
             # Get username from session info
@@ -211,7 +211,6 @@ def browse_my_data(request):
             cursor.execute(query_str, tuple(query_vals))
             records = cursor.fetchall()
 
-            table = None
             if table_name == 'tracks':
                 table = TracksTable(records)
             elif table_name == 'tows':
@@ -219,9 +218,9 @@ def browse_my_data(request):
             elif table_name == 'catch':
                 table = CatchTable(records)
 
-            return render(request, 'browse-my-data.html', locals())
-        else:
-            return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
+            table.paginate(page=request.GET.get("page", 1), per_page=50)
+
+        return render(request, 'browse-data.html', locals())
 
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)

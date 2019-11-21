@@ -1,14 +1,75 @@
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-{% bootstrap_messages %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {% block title %}<title>DYNAMICOPERU</title>{% endblock %}
-</head>
-<body>
-  {% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
-  {% block content %}<!-- default content text (typically empty) -->{% endblock %}
-</body>
+    <head>
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+        {% bootstrap_messages %}
+        {% block title %}<title>DYNAMICOPERU</title>{% endblock %}
+    </head>
+    <body>
+        {{ user.is_authenticated }}
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">DYNAMICOPERU</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        {% if request.user.is_authenticated %}
+                            {% if "browse-my-data" in request.path %}
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Browse my data <span class="sr-only">(current)</span></a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/pescar-beta/browse-my-data">Browse my data</a>
+                                </li>
+                            {% endif %}
+                            {% if "search-my-data" in request.path %}
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Download my data <span class="sr-only">(current)</span></a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/pescar-beta/search-my-data">Download my data</a>
+                                </li>
+                            {% endif %}
+                            {% if request.user|has_group:'Researchers' %}
+                                {% if "browse-data" in request.path %}
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="#">Browse all data <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/pescar-beta/browse-data">Browse all data</a>
+                                    </li>
+                                {% endif %}
+                                {% if "search-data" in request.path %}
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="#">Download all data <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/pescar-beta/search-data">Download all data</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pescar-beta/accounts/logout">Log out</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pescar-beta/accounts/login">Log in</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            {% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
+            {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+        </div>
+    </body>
 </html>
