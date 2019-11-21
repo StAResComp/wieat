@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'corsheaders',
     'django_tables2',
+    'bootstrap4',
 ]
 
 AUTHENTICATION_BACKENDS = [

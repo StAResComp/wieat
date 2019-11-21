@@ -152,11 +152,11 @@ def browse_data(request):
             records = cursor.fetchall()
 
             if table_name == 'tracks':
-                table = TracksTable(records)
+                table = TracksTable(records, template_name="django_tables2/bootstrap-responsive.html")
             elif table_name == 'tows':
-                table = TowsTable(records)
+                table = TowsTable(records, template_name="django_tables2/bootstrap-responsive.html")
             elif table_name == 'catch':
-                table = CatchTable(records)
+                table = CatchTable(records, template_name="django_tables2/bootstrap-responsive.html")
 
             table.paginate(page=request.GET.get("page", 1), per_page=50)
 
