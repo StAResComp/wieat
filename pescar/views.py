@@ -169,26 +169,26 @@ def __get_data(datatype = 'tracks', username = None, date_from_str = '', date_to
     return cursor
 
 class TracksTable(tables.Table):
-    username = tables.Column()
-    trip = tables.Column()
-    latitude = tables.Column()
-    longitude = tables.Column()
-    accuracy = tables.Column()
-    timestamp = tables.DateTimeColumn()
+    username = tables.Column(orderable=False)
+    trip = tables.Column(orderable=False)
+    latitude = tables.Column(orderable=False)
+    longitude = tables.Column(orderable=False)
+    accuracy = tables.Column(orderable=False)
+    timestamp = tables.DateTimeColumn(orderable=False)
 
 class TowsTable(tables.Table):
-    username = tables.Column()
-    trip = tables.Column()
-    local_id = tables.Column()
-    weight = tables.Column()
-    timestamp = tables.Column()
+    username = tables.Column(orderable=False)
+    trip = tables.Column(orderable=False)
+    local_id = tables.Column(orderable=False)
+    weight = tables.Column(orderable=False)
+    timestamp = tables.Column(orderable=False)
 
 class CatchTable(tables.Table):
-    username = tables.Column()
-    trip = tables.Column()
-    species = tables.Column()
-    weight = tables.Column()
-    timestamp = tables.Column()
+    username = tables.Column(orderable=False)
+    trip = tables.Column(orderable=False)
+    species = tables.Column(orderable=False)
+    weight = tables.Column(orderable=False)
+    timestamp = tables.Column(orderable=False)
 
 class ApiEndpoint(ProtectedResourceView):
     @csrf_exempt
