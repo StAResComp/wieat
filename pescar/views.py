@@ -121,10 +121,10 @@ def __get_csv_response(cursor, datatype):
 def __get_data(datatype = 'tracks', username = None, date_from_str = '', date_to_str = ''):
     date_from = None
     if date_from_str != '':
-        date_from = parse(date_from_str, dayfirst=True)
+        date_from = parse(date_from_str, dayfirst=False)
     date_to = None
     if date_to_str != '':
-        date_to = parse(date_to_str, dayfirst=True)
+        date_to = parse(date_to_str, dayfirst=False)
 
     table_name = 'tracks'
     if datatype == 'tows' or datatype == 'tow':
