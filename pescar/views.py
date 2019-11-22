@@ -101,11 +101,11 @@ def my_data(request):
 def __get_table(cursor, datatype, page):
     records = cursor.fetchall()
     if datatype == 'tracks':
-        table = TracksTable(records, template_name="django_tables2/bootstrap-responsive.html")
+        table = TracksTable(records, template_name="django_tables2/bootstrap4.html")
     elif datatype == 'tows' or datatype == 'tow':
-        table = TowsTable(records, template_name="django_tables2/bootstrap-responsive.html")
+        table = TowsTable(records, template_name="django_tables2/bootstrap4.html")
     elif datatype == 'catch':
-        table = CatchTable(records, template_name="django_tables2/bootstrap-responsive.html")
+        table = CatchTable(records, template_name="django_tables2/bootstrap4.html")
     table.paginate(page=page, per_page=50)
     return table
 
