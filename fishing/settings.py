@@ -165,7 +165,7 @@ OAUTH2_PROVIDER = {
 
 }
 
-LOGIN_REDIRECT_URL = '/fishers/search-my-data'
+LOGIN_REDIRECT_URL = '/fishers/browse-my-data'
 
 # SCRIPT_NAME
 if os.environ.get('DJANGO_DEVELOPMENT') is None:

@@ -16,9 +16,6 @@ from . import forms
 from .forms import DataSearchForm
 from .forms import MyDataSearchForm
 
-def index(request):
-    return HttpResponse("Hello world")
-
 @login_required()
 def search(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():

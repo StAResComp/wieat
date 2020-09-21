@@ -24,7 +24,7 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/fishers/browse-my-data">Browse my data</a>
+                                    <a class="nav-link" href="{% url 'browse-my-data' %}">Browse my data</a>
                                 </li>
                             {% endif %}
                             {% if "search-my-data" in request.path %}
@@ -33,7 +33,7 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/fishers/search-my-data">Download my data</a>
+                                    <a class="nav-link" href="{% url 'search-my-data' %}">Download my data</a>
                                 </li>
                             {% endif %}
                             {% if request.user|has_group:'Researchers' %}
@@ -43,7 +43,7 @@
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/fishers/browse-data">Browse all data</a>
+                                        <a class="nav-link" href="{% url 'browse-data' %}">Browse all data</a>
                                     </li>
                                 {% endif %}
                                 {% if "search-data" in request.path %}
@@ -52,16 +52,16 @@
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/fishers/search-data">Download all data</a>
+                                        <a class="nav-link" href="{% url 'search-data' %}">Download all data</a>
                                     </li>
                                 {% endif %}
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/fishers/accounts/logout">Log out</a>
+                                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/fishers/accounts/login">Log in</a>
+                                <a class="nav-link" href="{% url 'login' %}">Log in</a>
                             </li>
                         {% endif %}
                     </ul>
