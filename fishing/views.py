@@ -3,6 +3,7 @@ from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 from django.db import connections
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from datetime import datetime
 from dateutil.parser import parse
@@ -18,12 +19,14 @@ from .forms import MyDataSearchForm
 def index(request):
     return HttpResponse("Hello world")
 
+@login_required()
 def search(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
         return render(request, 'search.html', {'form': DataSearchForm()})
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
+@login_required()
 def data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
         form = DataSearchForm(request.GET)
@@ -41,6 +44,7 @@ def data(request):
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
+@login_required()
 def browse_data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
         table = None
@@ -58,12 +62,14 @@ def browse_data(request):
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
+@login_required()
 def search_my_data(request):
     if request.user.is_authenticated:
         return render(request, 'search-my-data.html', {'form': MyDataSearchForm()})
     else:
         return HttpResponse('Permission denied for user {}. Authenticated: {}'.format(request.user.username, request.user.is_authenticated), status=403)
 
+@login_required()
 def browse_my_data(request):
     if request.user.is_authenticated:
         form = MyDataSearchForm(request.GET)
@@ -81,6 +87,7 @@ def browse_my_data(request):
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
+@login_required()
 def my_data(request):
     if request.user.is_authenticated:
         form = DataSearchForm(request.GET)

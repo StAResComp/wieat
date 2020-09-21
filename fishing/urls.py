@@ -1,4 +1,4 @@
-"""pescar URL Configuration
+"""fishing URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'^data/', views.data),
     url(r'^browse-data/', views.browse_data),
     url(r'^my-data/', views.my_data),
+    url(r'^/', views.my_data),
     url(r'^browse-my-data/', views.browse_my_data),
     url(r'^search-data/', views.search),
     url(r'^search-my-data/', views.search_my_data),

@@ -6,12 +6,12 @@
         {% bootstrap_css %}
         {% bootstrap_javascript jquery='full' %}
         {% bootstrap_messages %}
-        {% block title %}<title>DYNAMICOPERU</title>{% endblock %}
+        {% block title %}<title>Fishing</title>{% endblock %}
     </head>
     <body>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">DYNAMICOPERU</a>
+                <a class="navbar-brand" href="#">Fishing</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -24,7 +24,7 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/pescar-beta/browse-my-data">Browse my data</a>
+                                    <a class="nav-link" href="/fishers/browse-my-data">Browse my data</a>
                                 </li>
                             {% endif %}
                             {% if "search-my-data" in request.path %}
@@ -33,7 +33,7 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/pescar-beta/search-my-data">Download my data</a>
+                                    <a class="nav-link" href="/fishers/search-my-data">Download my data</a>
                                 </li>
                             {% endif %}
                             {% if request.user|has_group:'Researchers' %}
@@ -43,7 +43,7 @@
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/pescar-beta/browse-data">Browse all data</a>
+                                        <a class="nav-link" href="/fishers/browse-data">Browse all data</a>
                                     </li>
                                 {% endif %}
                                 {% if "search-data" in request.path %}
@@ -52,16 +52,16 @@
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/pescar-beta/search-data">Download all data</a>
+                                        <a class="nav-link" href="/fishers/search-data">Download all data</a>
                                     </li>
                                 {% endif %}
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/pescar-beta/accounts/logout">Log out</a>
+                                <a class="nav-link" href="/fishers/accounts/logout">Log out</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/pescar-beta/accounts/login">Log in</a>
+                                <a class="nav-link" href="/fishers/accounts/login">Log in</a>
                             </li>
                         {% endif %}
                     </ul>

@@ -1,5 +1,5 @@
 """
-WSGI config for pescar project.
+WSGI config for fishing project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,6 +12,6 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pescar.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fishing.settings')
 
 application = get_wsgi_application()
