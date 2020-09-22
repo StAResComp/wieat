@@ -100,17 +100,17 @@ if os.environ.get('DJANGO_DEVELOPMENT') is None:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'fishing_django',
-            'USER': 'fishing',
+            'USER': 'fishing@fishing-data',
             'PASSWORD': 'POSTGRES_PW_HERE',
-            'HOST': 'juve.st-andrews.ac.uk',
+            'HOST': 'fishing-data.postgres.database.azure.com',
             'PORT': '5432',
         },
         'data': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'fishing_data',
-            'USER': 'fishing',
+            'USER': 'fishing@fishing-data',
             'PASSWORD': 'POSTGRES_PW_HERE',
-            'HOST': 'juve.st-andrews.ac.uk',
+            'HOST': 'fishing-data.postgres.database.azure.com',
             'PORT': '5432',
         }
     }
