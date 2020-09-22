@@ -25,7 +25,7 @@ SECRET_KEY = 'SECRET_KEY_HERE'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','arts.st-andrews.ac.uk','rescomp-dev-1.st-andrews.ac.uk','fishing.uksouth.cloudapp.azure.com']
 
 
 # Application definition
