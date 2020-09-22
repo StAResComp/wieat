@@ -3,6 +3,7 @@ from oauth2_provider.views.generic import ProtectedResourceView
 from django.http import HttpResponse
 from django.db import connections
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from datetime import datetime
 from dateutil.parser import parse
@@ -15,88 +16,57 @@ from . import forms
 from .forms import DataSearchForm
 from .forms import MyDataSearchForm
 
+@login_required()
 def index(request):
-    return HttpResponse("Hello world")
+    return render(request, 'index.html')
 
-def search(request):
+@login_required()
+def search_data(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        return render(request, 'search.html', {'form': DataSearchForm()})
-    else:
-        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
-
-def data(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        form = DataSearchForm(request.GET)
-        if form.is_valid():
-            datatype = request.GET.get('datatype','tracks')
-            user = request.GET.get('user','')
-            date_from_str = request.GET.get('datefrom','')
-            date_to_str = request.GET.get('dateto','')
-
-            return __get_csv_response(__get_data(datatype, user, date_from_str, date_to_str), datatype)
-
+        if request.GET.get('datatype') is None:
+            return render(request, 'search-data.html', {'form': DataSearchForm()})
         else:
-            return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
-
+            __do_data_response(request, True)
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
-def browse_data(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='Researchers').exists():
-        table = None
-        form = DataSearchForm(request.GET)
-        if form.is_valid():
-            datatype = request.GET.get('datatype','tracks')
-            user = request.GET.get('user','')
-            date_from_str = request.GET.get('datefrom','')
-            date_to_str = request.GET.get('dateto','')
-
-            table = __get_table(__get_data(datatype, user, date_from_str, date_to_str), datatype, request.GET.get("page", 1))
-
-        return render(request, 'browse-data.html', locals())
-
-    else:
-        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
-
+@login_required()
 def search_my_data(request):
     if request.user.is_authenticated:
-        return render(request, 'search-my-data.html', {'form': MyDataSearchForm()})
-    else:
-        return HttpResponse('Permission denied for user {}. Authenticated: {}'.format(request.user.username, request.user.is_authenticated), status=403)
-
-def browse_my_data(request):
-    if request.user.is_authenticated:
-        form = MyDataSearchForm(request.GET)
-        table = None
-        if form.is_valid():
-            datatype = request.GET.get('datatype','tracks')
-            user = request.user.username
-            date_from_str = request.GET.get('datefrom','')
-            date_to_str = request.GET.get('dateto','')
-
-            table = __get_table(__get_data(datatype, user, date_from_str, date_to_str), datatype,request.GET.get("page", 1))
-
-        return render(request, 'browse-data.html', locals())
-
+        if request.GET.get('datatype') is None:
+            return render(request, 'search-my-data.html', {'form': MyDataSearchForm()})
+        else:
+            __do_data_response(request)
     else:
         return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
 
-def my_data(request):
-    if request.user.is_authenticated:
-        form = DataSearchForm(request.GET)
-        if form.is_valid():
-            datatype = request.GET.get('datatype','tracks')
-            user = request.user.username
-            date_from_str = request.GET.get('datefrom','')
-            date_to_str = request.GET.get('dateto','')
+def __do_data_response(request, other_user = False):
 
+    form = None
+    return_template = 'search-my-data.html'
+    if other_user:
+        form = DataSearchForm(request.GET)
+        return_template = 'search-data.html'
+    else:
+        form = MyDataSearchForm(request.GET)
+
+    if form.is_valid():
+
+        datatype = request.GET.get('datatype','tracks')
+        date_from_str = request.GET.get('datefrom','')
+        date_to_str = request.GET.get('dateto','')
+        user = request.user.username
+        if other_user:
+            user = request.GET.get('user','')
+
+        if request.GET.get('download') is None:
+            table = __get_table(__get_data(datatype, user, date_from_str, date_to_str), datatype, request.GET.get("page", 1))
+            return render(request, return_template, locals())
+        else:
             return __get_csv_response(__get_data(datatype, user, date_from_str, date_to_str), datatype)
 
-        else:
-            return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
-
     else:
-        return HttpResponse('Permission denied for user {}'.format(request.user.username), status=403)
+        return render(request, return_template)
 
 def __get_table(cursor, datatype, page):
     records = cursor.fetchall()
