@@ -18,41 +18,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         {% if request.user.is_authenticated %}
-                            {% if "browse-my-data" in request.path %}
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="#">Browse my data <span class="sr-only">(current)</span></a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'browse-my-data' %}">Browse my data</a>
-                                </li>
-                            {% endif %}
                             {% if "search-my-data" in request.path %}
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">Download my data <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="#">Search my data <span class="sr-only">(current)</span></a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'search-my-data' %}">Download my data</a>
+                                    <a class="nav-link" href="{% url 'search-my-data' %}">Search my data</a>
                                 </li>
                             {% endif %}
                             {% if request.user|has_group:'Researchers' %}
-                                {% if "browse-data" in request.path %}
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">Browse all data <span class="sr-only">(current)</span></a>
-                                    </li>
-                                {% else %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'browse-data' %}">Browse all data</a>
-                                    </li>
-                                {% endif %}
                                 {% if "search-data" in request.path %}
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="#">Download all data <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="#">Search all data <span class="sr-only">(current)</span></a>
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'search-data' %}">Download all data</a>
+                                        <a class="nav-link" href="{% url 'search-data' %}">Search all data</a>
                                     </li>
                                 {% endif %}
                             {% endif %}

@@ -47,13 +47,9 @@ if settings.DEBUG:
     ]
 
 urlpatterns = [
+    path('', views.index, name='index'),
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^data/', views.data, name='data'),
-    url(r'^browse-data/', views.browse_data, name='browse-data'),
-    url(r'^my-data/', views.my_data, name='my-data'),
-    url(r'^', views.search_my_data),
-    url(r'^browse-my-data/', views.browse_my_data, name='browse-my-data'),
-    url(r'^search-data/', views.search, name='search'),
+    url(r'^search-data/', views.search_data, name='search-data'),
     url(r'^search-my-data/', views.search_my_data, name='search-my-data'),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/data', csrf_exempt(ApiEndpoint.as_view())),  # an example resource endpoint
