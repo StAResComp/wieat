@@ -165,13 +165,13 @@ OAUTH2_PROVIDER = {
 
 }
 
-LOGIN_REDIRECT_URL = '/fishers/search-my-data'
+LOGIN_REDIRECT_URL = '/fishing/search-my-data'
 
 # SCRIPT_NAME
 if os.environ.get('DJANGO_DEVELOPMENT') is None:
-    FORCE_SCRIPT_NAME='/fishers'
-    STATIC_URL='/fishers/static/'
-    LOGIN_URL='/fishers/accounts/login/'
+    FORCE_SCRIPT_NAME='/fishing'
+    STATIC_URL='/fishing/static/'
+    LOGIN_URL='/fishing/accounts/login/'
 
 LOGGING = {
     'version': 1,
