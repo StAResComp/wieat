@@ -166,15 +166,8 @@ class ApiEndpoint(ProtectedResourceView):
         if request.user.is_authenticated:
             username = request.user.username
             cursor = connections['data'].cursor()
-            cursor.execute("SELECT * FROM users WHERE username LIKE %s", (username,))
-            users = cursor.fetchall()
-            user_id = None
-            if len(users) == 0:
-                cursor.execute("INSERT INTO users (username) VALUES (%s) RETURNING id", (username,))
-                user_id = cursor.fetchone()[0]
-            else:
-                user_id = users[0][0]
             body = request.body.decode('utf-8')
-            cursor.execute("INSERT INTO trips (user_id, data) VALUES (%s, %s)", (user_id, body,))
+            cursor.execute("SELECT inserted FROM WIAppInsert(%s, %s)", (user_id, body,))
+            # Do something with the returned value to determine HttpResponse
             return HttpResponse("{'Success':'True'}", 200)
 
