@@ -164,10 +164,9 @@ class ApiEndpoint(ProtectedResourceView):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            username = request.user.username
             cursor = connections['data'].cursor()
             body = request.body.decode('utf-8')
-            cursor.execute("SELECT inserted FROM WIAppInsert(%s, %s)", (user_id, body,))
+            cursor.execute("SELECT inserted FROM WIAppInsert(%s, %s)", (request.user.email, body,))
             # Do something with the returned value to determine HttpResponse
             return HttpResponse("{'Success':'True'}", 200)
 
